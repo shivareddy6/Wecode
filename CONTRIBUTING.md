@@ -62,6 +62,12 @@ Thank you for your interest in contributing to WeCode! This document provides gu
    npm run dev
    ```
 
+6. **Load the Chrome Extension**
+   - Open Chrome and navigate to `chrome://extensions/`
+   - Enable "Developer mode" in the top right corner.
+   - Click "Load unpacked".
+   - Select the `extension` folder from the project root.
+
 ## 🔄 Development Workflow
 
 1. **Create a new branch**
@@ -105,19 +111,19 @@ Thank you for your interest in contributing to WeCode! This document provides gu
 
 ```
 wecode/
-├── app/                    # Next.js App Router pages
-│   ├── auth/              # Authentication routes
-│   ├── dashboard/         # Dashboard page
-│   ├── login/            # Login page
-│   └── page.tsx          # Home/redirect page
-├── components/            # React components
-│   ├── ui/               # Shadcn/UI components
-│   └── ...               # Custom components
-├── lib/                   # Utility functions and configs
-│   ├── supabase/         # Supabase client configurations
-│   └── utils.ts          # Helper functions
-├── public/               # Static assets
-└── middleware.ts         # Next.js middleware
+├── app/
+│   ├── api/                 # API routes
+│   ├── (auth)/              # Auth-related pages
+│   └── (protected)/         # Protected routes
+├── components/
+│   ├── ui/                  # Shadcn/UI components
+│   └── ...
+├── extension/               # Chrome Extension source
+├── lib/
+│   ├── supabase/            # Supabase client configurations
+│   └── utils.ts
+├── public/
+└── middleware.ts            # Next.js auth middleware
 ```
 
 ### Key Files

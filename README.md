@@ -28,23 +28,27 @@
 ```
 wecode/
 ├── app/
-│   ├── auth/
-│   │   └── callback/          # OAuth callback handler
-│   ├── dashboard/             # Main dashboard (protected)
-│   ├── login/                 # Login page
-│   └── page.tsx               # Root redirect
+│   ├── api/
+│   │   └── auth/
+│   │       └── sync-cookies/  # API route for cookie sync
+│   ├── (auth)/                # Auth-related pages (login)
+│   ├── (protected)/           # Protected routes (dashboard)
+│   └── page.tsx               # Home/redirect page
 ├── components/
 │   ├── ui/                    # Shadcn/UI components
-│   ├── SignOutButton.tsx
-│   └── icons.tsx
+│   └── ...
+├── extension/                 # Chrome Extension for cookie extraction
+│   ├── manifest.json
+│   ├── popup.html
+│   └── popup.js
 ├── lib/
 │   ├── supabase/
-│   │   ├── client.ts          # Browser Supabase client
-│   │   ├── server.ts          # Server Supabase client
-│   │   └── middleware.ts      # Auth middleware
+│   │   ├── client.ts
+│   │   ├── server.ts
+│   │   └── middleware.ts
 │   └── utils.ts
-├── middleware.ts              # Next.js middleware
-└── project-spec.md            # Detailed project specification
+├── middleware.ts              # Next.js auth middleware
+└── project-spec.md
 ```
 
 ## 🔐 Database Schema
