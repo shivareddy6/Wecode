@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "WeCode LeetCode Sync",
+  "version": "1.0.0",
+  "description": "Sync your LeetCode session with WeCode for collaborative coding",
+  "permissions": [
+    "cookies",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://leetcode.com/*",
+    "http://localhost:3000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Sync LeetCode Session"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

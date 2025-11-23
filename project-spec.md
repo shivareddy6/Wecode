@@ -42,18 +42,32 @@ WeCode is a collaborative coding platform.
 - [ ] Create `users` table in Supabase.
 - [ ] **Checkpoint:** I can log in and see a blank Dashboard.
 
-### Phase 2: The Cookie Extractor (Extension)
-**Goal:** One-click button to import LeetCode session into WeCode.
-- [ ] Create a folder `extension`.
-- [ ] Create `manifest.json` (Host Permissions: `*://leetcode.com/*`, `*://wecode.com/*`).
-- [ ] Create `popup.js`:
-    -   Query `chrome.cookies.get` for `LEETCODE_SESSION` and `csrftoken`.
-    -   Display them in the popup (for debugging).
-    -   Button "Sync with WeCode" -> Sends POST request to `http://localhost:3000/api/auth/sync-cookies`.
-- [ ] Create Next.js API Route `/api/auth/sync-cookies`:
-    -   Receives cookies.
-    -   Updates the logged-in user's row in Supabase `users` table.
-- [ ] **Checkpoint:** I click the extension button, and my database row updates with my LeetCode cookies.
+### Phase 2: The Cookie Extractor (Secure Form POST)
+**Goal:** Extension submits LeetCode tokens to WeCode via a secure POST navigation (opening a new tab).
+
+**2.1. Extension Logic (popup.js)**
+- [ ] Query `chrome.cookies.get`.
+- [ ] Construct a hidden HTML `<form>` element in the popup DOM.
+    -   `method="POST"`
+    -   `action="http://localhost:3000/api/auth/sync-cookies"`
+    -   `target="_blank"` (Opens new tab)
+- [ ] Add `input type="hidden"` fields for `leetcode_session` and `csrftoken`.
+- [ ] programmatic `form.submit()`.
+
+**2.2. Backend Handler (Next.js Route)**
+- [ ] Create `app/api/auth/sync-cookies/route.ts`.
+- [ ] Method: `POST`.
+- [ ] Logic:
+    -   Check `supabase.auth.getUser()`.
+    -   **If User is Null:** `redirect('/login?error=login_required')`.
+    -   **If User exists:** Read `formData()`, Upsert to `user_secrets` table.
+    -   **Success:** `redirect('/dashboard?success=true')`.
+
+**2.3. Checkpoint**
+- [ ] I click "Sync" in the extension.
+- [ ] A new tab opens.
+- [ ] If I am logged out, I land on Login.
+- [ ] If I am logged in, I land on Dashboard with a "Synced Successfully" toast.
 
 ### Phase 3: The LeetCode Proxy (The Hard Part)
 **Goal:** Next.js can talk to LeetCode on my behalf.
@@ -84,4 +98,3 @@ WeCode is a collaborative coding platform.
 - [ ] Add "Run Code" (Test case check) feature (similar to Submit but simpler).
 - [ ] Clean up UI (Dark mode, loading states).
 - [ ] Deploy to Vercel.
-sW7R9XXjr%TLLKe
