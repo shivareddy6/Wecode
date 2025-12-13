@@ -36,38 +36,38 @@ WeCode is a collaborative coding platform.
 
 ### Phase 1: Setup & Basic Auth
 **Goal:** Project initialized and basic Google Login works.
-- [ ] Initialize Next.js app with Tailwind & Shadcn/UI.
-- [ ] Set up Supabase project & connect env variables.
-- [ ] Enable Google Auth in Supabase.
-- [ ] Create `users` table in Supabase.
-- [ ] **Checkpoint:** I can log in and see a blank Dashboard.
+- [x] Initialize Next.js app with Tailwind & Shadcn/UI.
+- [x] Set up Supabase project & connect env variables.
+- [x] Enable Google Auth in Supabase.
+- [x] Create `users` table in Supabase.
+- [x] **Checkpoint:** I can log in and see a blank Dashboard.
 
 ### Phase 2: The Cookie Extractor (Secure Form POST)
 **Goal:** Extension submits LeetCode tokens to WeCode via a secure POST navigation (opening a new tab).
 
 **2.1. Extension Logic (popup.js)**
-- [ ] Query `chrome.cookies.get`.
-- [ ] Construct a hidden HTML `<form>` element in the popup DOM.
+- [x] Query `chrome.cookies.get`.
+- [x] Construct a hidden HTML `<form>` element in the popup DOM.
     -   `method="POST"`
     -   `action="http://localhost:3000/api/auth/sync-cookies"`
     -   `target="_blank"` (Opens new tab)
-- [ ] Add `input type="hidden"` fields for `leetcode_session` and `csrftoken`.
-- [ ] programmatic `form.submit()`.
+- [x] Add `input type="hidden"` fields for `leetcode_session` and `csrftoken`.
+- [x] programmatic `form.submit()`.
 
 **2.2. Backend Handler (Next.js Route)**
-- [ ] Create `app/api/auth/sync-cookies/route.ts`.
-- [ ] Method: `POST`.
-- [ ] Logic:
+- [x] Create `app/api/auth/sync-cookies/route.ts`.
+- [x] Method: `POST`.
+- [x] Logic:
     -   Check `supabase.auth.getUser()`.
     -   **If User is Null:** `redirect('/login?error=login_required')`.
     -   **If User exists:** Read `formData()`, Upsert to `user_secrets` table.
     -   **Success:** `redirect('/dashboard?success=true')`.
 
 **2.3. Checkpoint**
-- [ ] I click "Sync" in the extension.
-- [ ] A new tab opens.
-- [ ] If I am logged out, I land on Login.
-- [ ] If I am logged in, I land on Dashboard with a "Synced Successfully" toast.
+- [x] I click "Sync" in the extension.
+- [x] A new tab opens.
+- [x] If I am logged out, I land on Login.
+- [x] If I am logged in, I land on Dashboard with a "Synced Successfully" toast.
 
 ### Phase 3: The LeetCode Proxy (The Hard Part)
 **Goal:** Next.js can talk to LeetCode on my behalf.

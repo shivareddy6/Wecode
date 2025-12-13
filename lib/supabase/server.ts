@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import { LeetCodeCookies } from '@/lib/leetcode/client'
 
 export async function createClient() {
   const cookieStore = await cookies()
@@ -26,4 +27,26 @@ export async function createClient() {
       },
     }
   )
+}
+
+export async function getLeetCodeCookies(): Promise<LeetCodeCookies | null> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) return null
+
+  const { data: userSecrets } = await supabase
+    .from('user_secrets')
+    .select('leetcode_session, csrf_token')
+    .eq('user_id', user.id)
+    .single()
+
+  if (!userSecrets?.leetcode_session || !userSecrets?.csrf_token) {
+    return null
+  }
+
+  return {
+    LEETCODE_SESSION: userSecrets.leetcode_session,
+    csrftoken: userSecrets.csrf_token,
+  }
 }
